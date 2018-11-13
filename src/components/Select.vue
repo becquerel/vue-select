@@ -787,6 +787,26 @@
        */
       multiple(val) {
         this.mutableValue = val ? [] : null
+      },
+
+      /**
+       * when options are open, always scroll to the first selected item
+       * @param  {Boolean} val
+       * @return {void}
+       */
+      open(val) {
+        // scroll to the selected item
+        if (val) {
+          this.$nextTick(() => {
+            if (this.$refs.dropdownMenu) {
+              const selectedItems = this.$refs.dropdownMenu.getElementsByClassName('active')
+              if (selectedItems.length > 0) {
+                const selectedLi = selectedItems[0]
+                this.$refs.dropdownMenu.scrollTop = selectedLi.offsetTop
+              }
+            }
+          });
+        }
       }
     },
 
